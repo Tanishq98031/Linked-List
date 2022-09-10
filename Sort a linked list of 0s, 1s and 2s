@@ -1,0 +1,74 @@
+class Solution
+{
+    //Function to sort a linked list of 0s, 1s and 2s.
+    static Node segregate(Node head)
+    {
+        // add your code here
+        int zeroCount = 0;
+        int oneCount = 0;
+        int twoCount = 0;
+        
+        Node temp = head;
+        while(temp != null)
+        {
+            if(temp.data == 0)
+            {
+                zeroCount++;
+            }
+            else if(temp.data == 1)
+            {
+                oneCount++;
+            }
+            else if(temp.data == 2)
+            {
+                twoCount++;
+            }
+            
+            temp = temp.next;
+        }
+        
+        Node ans = new Node(-1);
+        Node ansHead = ans;
+        
+        while(zeroCount != 0)
+        {
+            insertNode(ansHead, 0);
+            zeroCount--;
+        }
+        
+        while(oneCount != 0)
+        {
+            insertNode(ansHead, 1);
+            oneCount--;
+        }
+        
+        while(twoCount != 0)
+        {
+            insertNode(ansHead, 2);
+            twoCount--;
+        }
+        
+        ansHead = ansHead.next;
+        return ansHead;
+    }
+    
+    public static void insertNode(Node h, int d)
+    {
+        Node node = new Node(d);
+        if(h.next == null)
+        {
+            h.next = node;
+            return;
+        }
+        
+        Node temp = h;
+        while(temp.next != null)
+        {
+            temp = temp.next;
+        }
+        
+        temp.next = node;
+    }
+}
+
+
