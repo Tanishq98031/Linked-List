@@ -1,0 +1,59 @@
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        
+        if(list1 == null)
+        {
+            return list2;
+        }
+        if(list2 == null)
+        {
+            return list1;
+        }
+        
+        if(list1.val < list2.val)
+        {
+            return solve(list1, list2);
+        }
+        else
+        {
+            return solve(list2, list1);
+        }
+    }
+    
+    public ListNode solve(ListNode list1, ListNode list2)
+    {
+        if(list1.next == null)
+        {
+            list1.next = list2;
+            return list1;
+        }
+        ListNode curr = list1;
+        ListNode curr2 = list2;
+        ListNode forw = list1.next;
+        
+        while(curr2 != null && forw != null)
+        {
+            if( (curr2.val >= curr.val) && (curr2.val <= forw.val))
+            {
+                ListNode forw2 = curr2.next;
+                curr.next = curr2;
+                curr2.next = forw;
+                
+                curr = curr2;
+                curr2 = forw2;
+            }
+            else
+            {
+                curr = forw;
+                forw = forw.next;
+            }
+        }
+        
+        if(forw == null)
+        {
+            curr.next = curr2;
+        }
+        
+        return list1;
+    }
+}
