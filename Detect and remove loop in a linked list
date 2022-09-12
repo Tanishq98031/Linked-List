@@ -1,0 +1,91 @@
+public class Solution {
+  public static Node removeLoop(Node head) {
+      
+      if(head == null || head.next == null)
+      {
+          return head;
+      }
+      if(!isPresent(head))
+      {
+          return head;
+      }
+      
+      Node startingPoint = getLoopElement(head);
+      Node temp2 = startingPoint;
+      Node ip = intersectionPoint(head);
+      Node temp = ip;
+      while(temp.next != temp2)
+      {
+          temp = temp.next;
+      }
+      temp.next = null;
+      return head;
+  }
+    
+    public static boolean isPresent(Node head)
+    {
+        Node slow = head;
+        Node fast = head;
+        
+        while(slow != null && fast != null)
+        {
+            slow = slow.next;
+            fast = fast.next;
+            if(fast != null && fast.next != null)
+            {
+                fast = fast.next;
+            }
+            
+            if(slow == fast)
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public static Node getLoopElement(Node head)
+    {
+        if(head == null)
+        {
+            return null;
+        }
+        Node temp = intersectionPoint(head);
+        Node slow = head;
+        Node fast = temp;
+        while(slow != fast)
+        {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
+    
+    public static Node intersectionPoint(Node head)
+    {
+        if(head == null)
+        {
+            return null;
+        }
+        
+        Node slow = head;
+        Node fast = head;
+        
+        while(slow != null && fast != null)
+        {
+            fast = fast.next;
+            if(fast.next != null)
+            {
+                fast = fast.next;
+            }
+            slow = slow.next;
+            if(slow == fast)
+            {
+                return slow;
+            }
+        }
+        return null;
+    }
+}
+    
