@@ -1,0 +1,62 @@
+class Solution {
+    public void reorderList(ListNode head) {
+        
+        if(head == null || head.next == null)
+        {
+            return;
+        }
+        
+        ListNode first = head;
+        ListNode prev = head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null)
+        {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        prev.next = null;
+        
+        ListNode second = reverse(slow);
+        merge(first, second);
+        
+    }
+    
+    public ListNode reverse(ListNode head)
+    {
+        ListNode prev = null;
+        ListNode curr = head;
+        
+        while(curr != null)
+        {
+            ListNode forw = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = forw;
+        }
+        return prev;
+    }
+    
+    public void merge(ListNode first, ListNode second)
+    {
+        while(first != null)
+        {
+            ListNode first_next = first.next;
+            ListNode second_next = second.next;
+            
+            first.next = second;
+            
+            if(first_next == null)
+            {
+                break;
+            }
+            
+            second.next = first_next;
+            
+            first = first_next;
+            second = second_next;
+        }
+    } 
+}
