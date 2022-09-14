@@ -1,0 +1,57 @@
+class Solution{
+    Node divide(int N, Node head){
+        // code here
+        Node node = new Node(-1);
+        node.next = head;
+        head = node;
+        Node prev = node;
+        Node curr = head.next;
+        Node tail = head;
+        int size = getSize(curr);
+        int i = 0;
+        
+        while(tail.next != null)
+        {
+            tail = tail.next;
+        }
+        
+        while(curr.next != null)
+        {
+            if(i == size)
+            {
+                return head.next;
+            }
+            int value = curr.data;
+            Node forw = curr.next;
+            if(value%2 != 0)
+            {
+                Node temp = curr;
+                temp.next = null;
+                prev.next = forw;
+                tail.next = temp;
+                tail = temp;
+                curr = forw;
+            }
+            else
+            {
+                prev = curr;
+                curr = forw;
+            }
+            i++;
+        }
+        head = head.next;
+        return head;
+    }
+    
+    public int getSize(Node head)
+    {
+        Node temp = head;
+        int size = 0;
+        while(temp != null)
+        {
+            size++;
+            temp = temp.next;
+        }
+        return size;
+    }
+}
