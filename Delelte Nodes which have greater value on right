@@ -1,0 +1,40 @@
+class Solution
+{
+    Node compute(Node head)
+    {
+        // your code here
+        Node node = new Node(-1);
+        node.next = head;
+        head = node;
+        
+        Node curr = head.next;
+        Node prev = head;
+        
+        while(curr.next != null)
+        {
+            Node forw = curr.next;
+            boolean c = false;
+            while(forw != null)
+            {
+                if(forw.data > curr.data)
+                {
+                    c = true;
+                    break;
+                }
+                forw = forw.next;
+            }
+            if(c)
+            {
+                prev.next = forw;
+                curr = forw;
+            }
+            else
+            {
+                prev = curr;
+                curr = curr.next;
+            }
+        }
+        head = head.next;
+        return head;
+    }
+}
