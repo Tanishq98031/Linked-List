@@ -1,0 +1,44 @@
+class Solution{
+	public static Node zigZag(Node head){
+        //add code here.
+        char ch = '<';
+        Node curr = head;
+        while(curr.next != null)
+        {
+            Node forw = curr.next;
+            if(ch == '<')
+            {
+                if(curr.data < forw.data)
+                {
+                    curr = curr.next;
+                    ch = '>';
+                }
+                else
+                {
+                    int d = curr.data;
+                    curr.data = forw.data;
+                    forw.data = d;
+                    curr = curr.next;
+                    ch = '>';
+                }
+            }
+            else
+            {
+                if(curr.data > forw.data)
+                {
+                    curr = curr.next;
+                    ch = '<';
+                }
+                else
+                {
+                    int d = curr.data;
+                    curr.data = forw.data;
+                    forw.data = d;
+                    curr = curr.next;
+                    ch = '<';
+                }
+            }
+        }
+        return head;
+    }
+}
