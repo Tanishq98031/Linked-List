@@ -1,0 +1,58 @@
+class GfG 
+{
+    public static Node rearrange(Node root)
+    {
+        if(root == null || root.next == null)
+        {
+            return root;
+        }
+        
+        Node prev = root;
+        Node first = root;
+        Node slow = root;
+        Node fast = root;
+        
+        while(fast != null && fast.next != null)
+        {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        prev.next = null;
+        
+        slow = reverse(slow);
+        Node second = slow;
+        
+        while(first != null)
+        {
+            Node first_next = first.next;
+            Node second_next = second.next;
+            
+            first.next = second;
+            if(first_next == null)
+            {
+                break;
+            }
+            
+            second.next = first_next;
+            first = first_next;
+            second = second_next;
+        }
+        
+        return root;
+    }
+    public static Node reverse(Node head)
+    {
+        Node prev = null;
+        Node curr = head;
+        
+        while(curr != null)
+        {
+            Node forw = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = forw;
+        }
+        return prev;
+    }
+}
